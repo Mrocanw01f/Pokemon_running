@@ -1,0 +1,118 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.game-board{
+    width: 80%;
+    height: 500px;
+    border: 1px solid #3333;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background-image: url('assents/fundo.jpg');
+    background-size: 100% 100%; /* Ajuste a largura e a altura conforme necessário */
+    background-repeat: no-repeat;
+}
+
+.oponente{
+    position:absolute;
+    bottom: 100px;
+    width: 200px;
+    /*left: 39px;*/
+    animation: oponente-animation 2.2s infinite linear;
+}
+
+.personagem{
+    width: 140px;
+    position:absolute;
+    bottom: 100px;
+    
+}
+
+.c1{
+    width: 80px;
+    position: absolute;
+    bottom: 380px;
+    left: 930px;
+    animation: passaro-animation 2.7s infinite linear;
+}
+
+.c2{
+    width: 80px;
+    position: absolute;
+    bottom: 290px;
+    left: 870px;
+    animation: passaro-animation 2.5s infinite linear;
+}
+
+.c3{
+    width: 80px;
+    position: absolute;
+    bottom: 340px;
+    left: 780px;
+    animation: passaro-animation 2.3s infinite linear;
+}
+
+.egg{
+    width: 50px;
+    position: absolute;
+    bottom: 430px;
+    left: 870px;
+    animation: passaro-animation 3.5s infinite linear;
+}
+
+.fundi{
+    width: 80px;
+    position:absolute;
+    right: 50px;
+    bottom: 0px;
+
+    animation: egg-animation 10s infinite linear;
+}
+
+.desvio{
+    animation: desvio-animation 1000ms;
+}
+@keyframes oponente-animation{
+    from{
+        right: -80px;
+    }
+    to{
+        right: 100%;
+    }
+}
+@keyframes desvio-animation {
+    0%{
+        bottom: 100px;
+    }
+    40%{
+        bottom: 0px
+    }
+    50%{
+        bottom: 0px;
+    }
+    60%{
+        bottom: 0px;
+    }
+    100%{
+        bottom: 100px;
+    }
+}
+@keyframes egg-animation{
+    from{
+        right: -80px;
+    }
+    to{
+        right: 100%;
+    }
+}
+@keyframes passaro-animation{
+    from{
+        left: 100%;
+    }
+    to{
+        left: 0%;
+    }
+}
