@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pikachurunner</title>
+    <link rel="icon" href="assents/logo.gif" type="image/gif"><!-- Favicon -->
+    <style>
+        button#resetButton {
+            position: absolute;
+            top: 90%;
+            left: 45%;
+            padding: 15px 30px;
+            background: url('assents/pokebola.png') no-repeat center center;
+            background-size: cover;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #voltarButton {
+            position: absolute;
+            top: 80%;
+            left: 25%;
+            padding: 15px 30px;
+            background: url('assents/voltar.png') no-repeat center center;
+            background-size: cover;
+            border: none;
+            border-radius: 35%;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #temporizador {
+            position: absolute;
+            top: 10%;
+            left: 45%;
+            font-size: 24px;
+            color: rgb(255, 0, 0);
+        }
+
+        /* Animação de piscar a tela em vermelho */
+        @keyframes piscarVermelho {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(255, 0, 0, 0.5); }
+            100% { background-color: transparent; }
+        }
+
+        /* Classe para aplicar o efeito de piscar */
+        .piscar {
+            animation: piscarVermelho 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="game-board">
+            <img src="assents/personagem.gif" class="personagem">
+            <img src="assents/fearow.gif" class="oponente">
+            <img src="assents/egg.gif" class="fundi">
+            <img src="assents/ceu3.gif" class="c3">
+            <img src="assents/ceu.gif" class="c2">
+            <img src="assents/ceu.gif" class="c1">
+            <img src="assents/ceu2.gif" class="egg">
+        </div>
+        <button id="resetButton"></button>
+        <a href="index.html" id="voltarButton"></a>
+        <div id="temporizador">00:00</div>
+    </div>
+
+    <script>
+        let tempoTotal = 0;
+        let temporizador;
+        const temporizadorElement = document.getElementById('temporizador');
+        let oponenteMovendo = false;
+        let temporizadorIniciado = false;
+
+        const formatarTempo = (segundos) => {
+            const minutos = Math.floor(segundos / 60);
+            const segRestantes = segundos % 60;
+            return `${minutos.toString().padStart(2, '0')}:${segRestantes.toString().padStart(2, '0')}`;
+        };
+
+        const iniciarTemporizador = () => {
+            temporizador = setInterval(() => {
+                tempoTotal++;
+                temporizadorElement.textContent = formatarTempo(tempoTotal);
+            }, 1000);
+        };
+
+        function pararTemporizador() {
+            clearInterval(temporizador);
+        };
+
+        const personagem = document.querySelector('.personagem');
+        const oponente = document.querySelector('.oponente');
+
+        const desvio = () => {
+            personagem.classList.add('desvio');
+            setTimeout(() => {
+                personagem.classList.remove('desvio');
+            }, 1000);
+
+            if (!oponenteMovendo) {
+                oponenteMovendo = true;
+                oponente.style.animation = 'oponente-animation 2.2s infinite linear';
+            }
+
+            if (!temporizadorIniciado) {
+                temporizadorIniciado = true;
+                iniciarTemporizador();
+            }
+
+            const loop = setInterval(() => {
+                const oponentePosition = oponente.offsetLeft;
+                const personagemPosition = window.getComputedStyle(personagem).bottom.replace('px', '');
+
+                if (oponentePosition <= 40 && oponentePosition > 0 && personagemPosition > 80) {
+                    oponente.style.animation = 'none';
+                    oponente.style.left = `${oponentePosition}px`;
+
+                    personagem.style.animation = 'none';
+                    personagem.style.left = `${personagemPosition}px`;
+
+                    personagem.src = "assents/derrota.png";
+                    personagem.style.width = '75px';
+                    personagem.style.marginLeft = '-35px';
+
+                    pararTemporizador();
+                    clearInterval(loop);
+                }
+            }, 10);
+        };
+
+        document.addEventListener('keydown', desvio);
+
+        const resetButton = document.getElementById('resetButton');
+
+        resetButton.addEventListener('click', () => {
+            document.body.classList.add('piscar');
+            setTimeout(() => {
+                location.reload();
+            }, 500); // Tempo suficiente para a animação de piscar ocorrer
+        });
+    </script>
+</body>
+
+</html>

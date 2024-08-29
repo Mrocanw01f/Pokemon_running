@@ -11,7 +11,7 @@
     margin: 0 auto;
     position: relative;
     overflow: hidden;
-    background-image: url('assents/fundo.jpg');
+    background-image: url('assents/fundo2.jpg');
     background-size: 100% 100%; /* Ajuste a largura e a altura conforme necessário */
     background-repeat: no-repeat;
 }
@@ -19,9 +19,9 @@
 .oponente{
     position:absolute;
     bottom: 100px;
-    width: 200px;
-    right: -20px;
-    /*animation: oponente-animation 2.2s infinite linear;*/
+    width: 800px;
+
+    animation: ataque-animation 2.2s infinite ;
 }
 
 .personagem{
@@ -75,12 +75,12 @@
 .desvio{
     animation: desvio-animation 1000ms;
 }
-@keyframes oponente-animation{
+@keyframes ataque-animation{
     from{
-        right: -80px;
+        right: 30px;
     }
     to{
-        right: 100%;
+        right: 190px;
     }
 }
 @keyframes desvio-animation {
