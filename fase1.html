@@ -10,7 +10,7 @@
     <style>
         button#resetButton {
             position: absolute;
-            top: 90%;
+            top: 86%;
             left: 45%;
             padding: 15px 30px;
             background: url('assents/pokebola.png') no-repeat center center;
@@ -25,7 +25,7 @@
 
         #voltarButton {
             position: absolute;
-            top: 80%;
+            top: 85%;
             left: 25%;
             padding: 15px 30px;
             background: url('assents/voltar.png') no-repeat center center;
@@ -57,10 +57,24 @@
         .piscar {
             animation: piscarVermelho 0.5s;
         }
+
+        #aviso {
+            position: absolute;
+            top: 40%;
+            left: 35%;
+            font-size: 24px;
+            color: red;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
     </style>
 </head>
 
 <body>
+    <br>
+    <br>
     <div class="game-container">
         <div class="game-board">
             <img src="assents/personagem.gif" class="personagem">
@@ -74,6 +88,9 @@
         <button id="resetButton"></button>
         <a href="index.html" id="voltarButton"></a>
         <div id="temporizador">00:00</div>
+        <div id="aviso">Parabéns! fase concluida clique para continuar
+            <br>
+            <a href="fase2.html">Próxima fase</a></div> <!-- Aviso -->
     </div>
 
     <script>
@@ -93,6 +110,13 @@
             temporizador = setInterval(() => {
                 tempoTotal++;
                 temporizadorElement.textContent = formatarTempo(tempoTotal);
+
+                if (tempoTotal === 60) { // Parar desvio ao atingir 20 segundos
+                    pararTemporizador();
+                    oponenteMovendo = false;
+                    oponente.style.animation = 'none'; // Parar o oponente
+                    mostrarAviso(); // Exibir o aviso
+                }
             }, 1000);
         };
 
@@ -104,10 +128,12 @@
         const oponente = document.querySelector('.oponente');
 
         const desvio = () => {
-            personagem.classList.add('desvio');
-            setTimeout(() => {
-                personagem.classList.remove('desvio');
-            }, 1000);
+            if (tempoTotal < 20) { // Permitir desvio apenas se o tempo for menor que 20
+                personagem.classList.add('desvio');
+                setTimeout(() => {
+                    personagem.classList.remove('desvio');
+                }, 1000);
+            }
 
             if (!oponenteMovendo) {
                 oponenteMovendo = true;
@@ -150,6 +176,11 @@
                 location.reload();
             }, 500); // Tempo suficiente para a animação de piscar ocorrer
         });
+
+        const mostrarAviso = () => {
+            const avisoElement = document.getElementById('aviso');
+            avisoElement.style.display = 'block';
+        };
     </script>
 </body>
 

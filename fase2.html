@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,6 +17,21 @@
             border: none;
             border-radius: 50%;
             cursor: pointer;
+        }
+
+        #voltarButton {
+            position: absolute;
+            top: 85%;
+            left: 25%;
+            padding: 15px 30px;
+            background: url('assents/voltar.png') no-repeat center center;
+            background-size: cover;
+            border: none;
+            border-radius: 35%;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            outline: none;
         }
         
         #temporizador {
@@ -41,6 +56,7 @@
             <img src="assents/ceu.gif" class="c1">
             <img src="assents/ceu2.gif" class="egg">
         </div>
+        <a href="index.html" id="voltarButton"></a>
         <button id="resetButton">Reiniciar</button>
         <div id="temporizador">00:00</div>
     </div>
