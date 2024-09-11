@@ -48,9 +48,17 @@
 
         /* Animação de piscar a tela em vermelho */
         @keyframes piscarVermelho {
-            0% { background-color: transparent; }
-            50% { background-color: rgba(255, 0, 0, 0.5); }
-            100% { background-color: transparent; }
+            0% {
+                background-color: transparent;
+            }
+
+            50% {
+                background-color: rgba(255, 0, 0, 0.5);
+            }
+
+            100% {
+                background-color: transparent;
+            }
         }
 
         /* Classe para aplicar o efeito de piscar */
@@ -63,11 +71,20 @@
             top: 40%;
             left: 35%;
             font-size: 24px;
-            color: red;
+            color: rgb(0, 0, 0);
             background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
+            padding: 0px;
             border-radius: 10px;
             display: none;
+            height: 180px;
+
+        }
+
+        .proxi{
+            padding: 50%;
+            text-align: center;
+            color: rgb(0, 0, 0);
+            background: url('assents/ticket.png') no-repeat center center;
         }
     </style>
 </head>
@@ -88,9 +105,9 @@
         <button id="resetButton"></button>
         <a href="index.html" id="voltarButton"></a>
         <div id="temporizador">00:00</div>
-        <div id="aviso">Parabéns! fase concluida clique para continuar
-            <br>
-            <a href="fase2.html">Próxima fase</a></div> <!-- Aviso -->
+        <div id="aviso">Parabéns! fase concluída. Clique para continuar
+            <br><br><br>
+            <a class="proxi" href="fase2.html"></a></div> <!-- Aviso -->
     </div>
 
     <script>
@@ -111,7 +128,7 @@
                 tempoTotal++;
                 temporizadorElement.textContent = formatarTempo(tempoTotal);
 
-                if (tempoTotal === 60) { // Parar desvio ao atingir 20 segundos
+                if (tempoTotal === 30) { // Parar desvio ao atingir 20 segundos
                     pararTemporizador();
                     oponenteMovendo = false;
                     oponente.style.animation = 'none'; // Parar o oponente
@@ -128,7 +145,7 @@
         const oponente = document.querySelector('.oponente');
 
         const desvio = () => {
-            if (tempoTotal < 20) { // Permitir desvio apenas se o tempo for menor que 20
+            if (tempoTotal < 30) { // Permitir desvio apenas se o tempo for menor que 30
                 personagem.classList.add('desvio');
                 setTimeout(() => {
                     personagem.classList.remove('desvio');
@@ -137,7 +154,7 @@
 
             if (!oponenteMovendo) {
                 oponenteMovendo = true;
-                oponente.style.animation = 'oponente-animation 2.2s infinite linear';
+                iniciarAnimacaoOponente(); // Iniciar a animação com velocidade aleatória
             }
 
             if (!temporizadorIniciado) {
@@ -164,6 +181,34 @@
                     clearInterval(loop);
                 }
             }, 10);
+        };
+
+        // Função para iniciar a animação do oponente com uma velocidade aleatória
+        const iniciarAnimacaoOponente = () => {
+            const randomSpeed = (Math.random() * (2.2 - 1.7) + 1.7).toFixed(1); // Velocidade aleatória entre 1.7 e 2.5 segundos
+
+            // Redefinir a posição inicial do oponente
+            oponente.style.right = '100%'; // Coloca o oponente fora da tela (à direita)
+            oponente.style.animation = `none`; // Remove qualquer animação atual
+
+            // Definir a nova animação com a velocidade aleatória
+            setTimeout(() => {
+                oponente.style.animation = `oponente-animation ${randomSpeed}s infinite linear forwards`;
+            }, 50); // Pequeno atraso para garantir que a animação seja reiniciada
+
+            // Listener para o fim de cada ciclo da animação
+            oponente.addEventListener('animationiteration', () => {
+                const novaVelocidade = (Math.random() * (2.2 - 1.7) + 1.7).toFixed(1); // Nova velocidade a cada ciclo
+
+                // Redefinir a posição inicial antes de iniciar o próximo ciclo
+                oponente.style.animation = `none`;
+                oponente.style.right = '100%'; // Volta para o ponto inicial
+
+                // Reiniciar a animação com a nova velocidade
+                setTimeout(() => {
+                    oponente.style.animation = `oponente-animation ${novaVelocidade}s infinite linear forwards`;
+                }, 50);
+            });
         };
 
         document.addEventListener('keydown', desvio);
