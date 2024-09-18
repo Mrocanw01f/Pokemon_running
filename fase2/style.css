@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     border: none;
@@ -12,11 +12,12 @@
     font-size: 30px;
     color: white;
 }
-#cenario{
-    left: 10%;
+
+#cenario {
+    left: 15%;
     position: relative;
-    width: 80vw;
-    height: 90vh;
+    width: 70vw;
+    height: 80vh;
     justify-content: center;
     background-image: url(/assents/fundo2.jpg);
     background-position: center;
@@ -24,17 +25,17 @@
     background-size: cover;
 }
 
-#menu{
+#menu {
     width: 80vw;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-#lucario{
+#lucario {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background-image: url(/assents/lucario.gif);
     background-position: center;
     background-repeat: no-repeat;
@@ -48,5 +49,44 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: block;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
 
+#ajuda {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    width: fit-content;
+}
+
+#ajuda ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#ajuda li {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+.key {
+    display: inline-block;
+    border: 2px solid white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    margin-right: 10px;
 }
