@@ -70,7 +70,7 @@ const dispararTiro = () => {
 
         setTimeout(() => {
             lucario.style.backgroundImage = "url('./assents/lucario.gif')"; // Caminho relativo
-        }, 900);
+        }, 800);
     }
 };
 
