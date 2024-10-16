@@ -49,8 +49,8 @@ const moveLucario = () => {
     }
 
     // Limites verticais
-    if (posicaoVertical < 300) {
-        posicaoVertical = 300;
+    if (posicaoVertical < 430) {
+        posicaoVertical = 430;
     } else if (posicaoVertical + alturaLucario > alturaCenario) {
         posicaoVertical = alturaCenario - alturaLucario;
     }
